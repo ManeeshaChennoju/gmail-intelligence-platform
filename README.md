@@ -1,72 +1,79 @@
 # Gmail Intelligence Platform
 
-An AI-powered Gmail Intelligence Platform that integrates with Gmail using OAuth 2.0 and Gmail APIs to provide intelligent email management, summarization, categorization, AI-assisted composition, AI-powered replies, and conversational email search.
+An AI-powered Gmail Intelligence Platform that integrates with Gmail using Google OAuth 2.0 and Gmail APIs to provide intelligent email management, categorization, AI-assisted email composition, AI-powered replies, and conversational email search.
 
+---
+
+## Live Demo
+
+**Vercel Deployment:**
+
+https://gmail-intelligence-platform-495qk8h9j.vercel.app/
 ---
 
 ## Features
 
 ### Gmail Integration
 
-- Google OAuth 2.0 Authentication
-- Gmail API Integration
-- Inbox Synchronization
-- Email Metadata Extraction
-- Email Storage in PostgreSQL
-- Incremental Sync Support
-- Thread Awareness
-
-### Email Summarization
-
-- Individual Email Summaries
-- Context-Aware Summaries
-- Thread-Level Understanding
+* Google OAuth 2.0 Authentication
+* Gmail API Integration
+* Inbox Synchronization
+* Email Metadata Extraction
+* Email Storage in PostgreSQL
+* Thread Awareness
+* Multi-User Support
+* User-Specific Email Isolation
 
 ### Email Categorization
 
-Supported Categories:
+Automatically categorizes emails into:
 
-- Finance
-- Notifications
-- Job / Recruitment
-- Newsletters
-- Personal
-- Work / Professional
+* Finance
+* Notifications
+* Job / Recruitment
+* Newsletters
+* Personal
+* Work / Professional
 
-### AI Chat Agent
+### AI Email Search
 
-Ask questions such as:
-
-- Show finance emails
-- Show security emails
-- Show job emails
-- Show newsletters
-- Summarize project discussions
-
-### Compose Email
-
-Generate professional emails from natural language prompts.
+Ask questions about your inbox using natural language.
 
 Examples:
 
-- Write a leave request email
-- Write a follow-up email
-- Write a business proposal
+* Show finance emails
+* Show notification emails
+* Show job emails
+* Show newsletters
+* Show work emails
+* Show personal emails
 
-### Reply Assistant
+### AI Email Composer
 
-- Select existing email
-- Generate contextual reply
-- Send reply directly through Gmail
-- Copy generated reply
+Generate professional emails from simple prompts.
 
-### Dashboard
+Examples:
 
-- Total Emails
-- Finance Emails
-- Notifications
-- Promotions
-- AI Search
+* Write a leave request email
+* Write a follow-up email
+* Write a meeting request email
+* Write a business proposal
+
+### AI Reply Assistant
+
+* Select an email from your inbox
+* Generate contextual AI replies
+* Copy generated reply
+* Send reply directly through Gmail
+
+### Dashboard Analytics
+
+* Total Emails
+* Finance Emails
+* Notifications
+* Newsletters
+* Job / Recruitment Emails
+* Conversational Email Search
 
 ---
 
@@ -74,76 +81,74 @@ Examples:
 
 ### Frontend
 
-- Next.js 16
-- React 19
-- TypeScript
-- Tailwind CSS 4
-- Sonner
+* Next.js 16
+* React 19
+* TypeScript
+* Tailwind CSS 4
+* Sonner (Toast Notifications)
 
 ### Backend
 
-- Next.js API Routes
+* Next.js API Routes
 
 ### Database
 
-- PostgreSQL (Neon)
-- Prisma ORM
+* PostgreSQL (Neon)
+* Prisma ORM
 
 ### Authentication
 
-- NextAuth
-- Google OAuth 2.0
+* NextAuth.js
+* Google OAuth 2.0
 
 ### AI
 
-- Gemini 2.0 Flash
+* Google Gemini 2.0 Flash
 
 ### Email Services
 
-- Gmail API
-- Google APIs SDK
+* Gmail API
+* Google APIs SDK
+
+### Deployment
+
+* Vercel
 
 ---
 
-## Project Structure
+## Project Architecture
 
+```text
 app/
 
 ├── dashboard/
-
 ├── compose/
-
 ├── reply/
 
 ├── api/
-
-│ ├── auth/
-
-│ ├── emails/
-
-│ ├── compose/
-
-│ ├── reply/
-
-│ ├── chat/
-
-│ ├── stats/
-
-│ └── process-emails/
+│   ├── auth/
+│   ├── emails/
+│   ├── emails/list/
+│   ├── compose/
+│   ├── reply/
+│   ├── reply/send/
+│   ├── chat/
+│   ├── stats/
+│   ├── threads/
+│   └── process-emails/
 
 ├── lib/
-
-│ └── prisma.ts
+│   └── prisma.ts
 
 prisma/
-
 └── schema.prisma
+```
 
 ---
 
 ## Environment Variables
 
-Create a .env file:
+Create a `.env` file:
 
 ```env
 DATABASE_URL=
@@ -159,11 +164,15 @@ GOOGLE_CLIENT_SECRET=
 GEMINI_API_KEY=
 ```
 
+---
+
 ## Installation
 
 ```bash
 npm install
 ```
+
+---
 
 ## Database Setup
 
@@ -171,6 +180,8 @@ npm install
 npx prisma generate
 npx prisma db push
 ```
+
+---
 
 ## Run Application
 
@@ -184,14 +195,35 @@ Application URL:
 http://localhost:3000
 ```
 
+---
+
 ## Assignment Highlights
 
-- Gmail OAuth Integration
-- Gmail API Usage
-- AI Email Summarization
-- AI Reply Generation
-- Email Categorization
-- Conversational Email Search
-- PostgreSQL Storage
-- Thread Awareness
-- Real Email Sending
+* Google OAuth 2.0 Authentication
+* Gmail API Integration
+* AI Email Categorization
+* AI Email Composer
+* AI Reply Assistant
+* Conversational Email Search
+* PostgreSQL Database Integration
+* Prisma ORM
+* Multi-User Support
+* User-Specific Email Isolation
+* Real Gmail Email Sending
+* Production Deployment on Vercel
+
+---
+
+## Future Enhancements
+
+* Advanced AI Email Summarization
+* Semantic Email Search
+* Email Priority Detection
+* Smart Follow-Up Suggestions
+* Attachment Analysis
+* Gmail Label Management
+* Real-Time Email Synchronization
+* Analytics Dashboard Enhancements
+
+```
+```
