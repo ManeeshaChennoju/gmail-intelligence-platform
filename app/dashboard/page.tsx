@@ -1,5 +1,6 @@
 "use client";
 
+import { signOut } from "next-auth/react";
 import { useEffect, useState } from "react";
 
 export default function Dashboard() {
@@ -35,7 +36,6 @@ export default function Dashboard() {
         setLoading(false);
     };
 
-    console.log("RESPONSE:----------------", response);
 
     return (
         <div className="container mx-auto p-4">
@@ -44,12 +44,33 @@ export default function Dashboard() {
                     Gmail Intelligence Dashboard
                 </h1>
 
-                <a
-                    href="/compose"
-                    className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700"
-                >
-                    ✉️ Compose Email
-                </a>
+                <div className="flex gap-3">
+
+                    <a
+                        href="/compose"
+                        className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700"
+                    >
+                        ✉️ Compose
+                    </a>
+
+                    <a
+                        href="/reply"
+                        className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700"
+                    >
+                        💬 Reply
+                    </a>
+                    <button
+                        onClick={() =>
+                            signOut({
+                                callbackUrl: "/",
+                            })
+                        }
+                        className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700"
+                    >
+                        🚪 Logout
+                    </button>
+
+                </div>
             </div>
 
             <div className="flex gap-3 mb-6">
@@ -75,59 +96,119 @@ export default function Dashboard() {
 
 
             {stats && (
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 my-6">
-
+                <div className="grid grid-cols-1 md:grid-cols-5 gap-4 my-6">
                     <div className="bg-white shadow rounded-xl p-4">
                         <p className="text-gray-500">📧 Total Emails</p>
                         <h2 className="text-3xl font-bold text-center">
                             {stats.totalEmails}
                         </h2>
                     </div>
-
                     <div className="bg-white shadow rounded-xl p-4">
                         <p className="text-gray-500">💰 Finance</p>
                         <h2 className="text-3xl font-bold text-center">
                             {stats.finance}
                         </h2>
                     </div>
-
                     <div className="bg-white shadow rounded-xl p-4">
-                        <p className="text-gray-500">🔐 Security</p>
+                        <p className="text-gray-500">💼 Jobs</p>
                         <h2 className="text-3xl font-bold text-center">
-                            {stats.security}
+                            {stats.jobs}
                         </h2>
                     </div>
 
                     <div className="bg-white shadow rounded-xl p-4">
-                        <p className="text-gray-500">🎁 Promotions</p>
+                        <p className="text-gray-500">🔐 Notifications</p>
                         <h2 className="text-3xl font-bold text-center">
-                            {stats.promotions}
+                            {stats.notifications}
+                        </h2>
+                    </div>
+
+                    <div className="bg-white shadow rounded-xl p-4">
+                        <p className="text-gray-500">🎁 Newsletters</p>
+                        <h2 className="text-3xl font-bold text-center">
+                            {stats.newsletters}
                         </h2>
                     </div>
 
                 </div>
             )}
 
+            {!response && (
+                <div className="bg-white rounded-xl border p-10 text-center">
+                    <h2 className="text-2xl font-semibold mb-2">
+                        Ask About Your Emails
+                    </h2>
+
+                    <p className="text-gray-500">
+                        Examples:
+                        "show finance emails",
+                        "show security emails",
+                        "show promotion emails"
+                    </p>
+                </div>
+            )}
+
             {response?.answer?.map((email: any, index: number) => (
                 <div
                     key={index}
-                    className="bg-white shadow-md rounded-xl p-5 mb-4 border"
+                    className="bg-white shadow-sm hover:shadow-md rounded-xl p-5 mb-4 border transition"
                 >
-                    <h3 className="text-xl font-semibold mb-2">
+                    <h3 className="text-xl font-semibold mb-3">
                         {email.subject}
                     </h3>
 
-                    <span className="inline-block bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm mb-3">
-                        {email.category}
-                    </span>
+                    <div className="flex gap-2 mb-3">
+                        <span className="inline-block bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm">
+                            {email.category}
+                        </span>
+                    </div>
 
-                    <p className="font-semibold">Summary</p>
+                    <p className="mb-2">
+                        <span className="font-semibold">
+                            Sender:
+                        </span>{" "}
+                        {email.sender}
+                    </p>
 
-                    <p className="text-gray-700">
+                    <p className="font-semibold">
+                        Summary
+                    </p>
+
+                    <p className="text-gray-700 mt-1 line-clamp-3">
                         {email.summary}
                     </p>
                 </div>
             ))}
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 pt-6">
+
+                <a
+                    href="/compose"
+                    className="bg-green-50 border border-green-200 rounded-xl p-5 hover:shadow-md transition"
+                >
+                    <h3 className="text-lg font-semibold text-green-700">
+                        ✉️ Compose Email
+                    </h3>
+
+                    <p className="text-sm text-gray-600 mt-1">
+                        Generate professional emails using AI or fallback templates.
+                    </p>
+                </a>
+
+                <a
+                    href="/reply"
+                    className="bg-purple-50 border border-purple-200 rounded-xl p-5 hover:shadow-md transition"
+                >
+                    <h3 className="text-lg font-semibold text-purple-700">
+                        💬 Reply Assistant
+                    </h3>
+
+                    <p className="text-sm text-gray-600 mt-1">
+                        Generate contextual replies for existing emails.
+                    </p>
+                </a>
+
+            </div>
 
 
         </div>

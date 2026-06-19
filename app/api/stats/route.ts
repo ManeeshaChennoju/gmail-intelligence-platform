@@ -10,22 +10,29 @@ export async function GET() {
     },
   });
 
-  const security = await prisma.email.count({
+  const notifications = await prisma.email.count({
     where: {
-      category: "Security",
+      category: "Notifications",
     },
   });
 
-  const promotions = await prisma.email.count({
+  const newsletters = await prisma.email.count({
     where: {
-      category: "Promotions",
+      category: "Newsletters",
+    },
+  });
+
+  const jobs = await prisma.email.count({
+    where: {
+      category: "Job / Recruitment",
     },
   });
 
   return NextResponse.json({
     totalEmails,
     finance,
-    security,
-    promotions,
+    notifications,
+    newsletters,
+    jobs,
   });
 }

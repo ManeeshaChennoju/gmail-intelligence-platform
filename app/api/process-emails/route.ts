@@ -1,60 +1,91 @@
 import { prisma } from "@/app/lib/prisma";
 import { NextResponse } from "next/server";
 
-function getCategory(subject: string, content: string) {
-  const text = `${subject} ${content}`.toLowerCase();
+function getCategory(
+  subject: string,
+  content: string,
+  sender: string = ""
+) {
+  const text =
+    `${subject} ${content} ${sender}`.toLowerCase();
 
+  // Finance
   if (
     text.includes("bank") ||
     text.includes("loan") ||
     text.includes("credit") ||
     text.includes("payment") ||
-    text.includes("kotak")
+    text.includes("invoice") ||
+    text.includes("receipt") ||
+    text.includes("transaction") ||
+    text.includes("kotak") ||
+    text.includes("hdfc") ||
+    text.includes("icici")
   ) {
     return "Finance";
   }
 
-  if (
-    text.includes("password") ||
-    text.includes("security") ||
-    text.includes("account") ||
-    text.includes("login") ||
-    text.includes("google account")
-  ) {
-    return "Security";
-  }
-
+  // Job / Recruitment
   if (
     text.includes("job") ||
+    text.includes("career") ||
+    text.includes("recruiter") ||
+    text.includes("recruitment") ||
     text.includes("interview") ||
-    text.includes("career")
+    text.includes("application") ||
+    text.includes("resume") ||
+    text.includes("hiring") ||
+    text.includes("offer letter")
   ) {
-    return "Job";
+    return "Job / Recruitment";
   }
 
-  if (
-    text.includes("sale") ||
-    text.includes("discount") ||
-    text.includes("offer") ||
-    text.includes("promotion")
-  ) {
-    return "Promotions";
-  }
-
+  // Newsletters
   if (
     text.includes("newsletter") ||
-    text.includes("update")
+    text.includes("digest") ||
+    text.includes("subscription") ||
+    text.includes("weekly update") ||
+    text.includes("daily update")
   ) {
-    return "Newsletter";
+    return "Newsletters";
   }
 
-  return "Other";
+  // Notifications
+  if (
+    text.includes("security") ||
+    text.includes("password") ||
+    text.includes("otp") ||
+    text.includes("verification") ||
+    text.includes("account") ||
+    text.includes("login") ||
+    text.includes("alert") ||
+    text.includes("notification")
+  ) {
+    return "Notifications";
+  }
+
+  // Work / Professional
+  if (
+    text.includes("meeting") ||
+    text.includes("project") ||
+    text.includes("team") ||
+    text.includes("client") ||
+    text.includes("work") ||
+    text.includes("sprint") ||
+    text.includes("deadline") ||
+    text.includes("task") ||
+    text.includes("jira")
+  ) {
+    return "Work / Professional";
+  }
+
+  // Default
+  return "Personal";
 }
 
 export async function GET() {
-  const emails = await prisma.email.findMany({
-    take: 10,
-  });
+  const emails = await prisma.email.findMany();
 
   for (const email of emails) {
     try {
@@ -63,7 +94,8 @@ export async function GET() {
 
       const category = getCategory(
         email.subject || "",
-        email.snippet || ""
+        email.snippet || "",
+        email.sender || ""
       );
 
       await prisma.email.update({

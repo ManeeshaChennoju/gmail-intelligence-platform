@@ -52,7 +52,8 @@ export async function GET(req: NextRequest) {
 
   const listResponse = await gmail.users.messages.list({
     userId: "me",
-    maxResults: 10,
+    maxResults: 100,
+    labelIds: ["INBOX"],
   });
 
   const messages = listResponse.data.messages || [];

@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
   const emails = await prisma.email.findMany({
-    take: 20,
+    take: 50,
     orderBy: {
       createdAt: "desc",
     },
