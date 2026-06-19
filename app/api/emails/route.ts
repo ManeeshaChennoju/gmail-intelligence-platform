@@ -80,9 +80,13 @@ export async function GET(req: NextRequest) {
 
       await prisma.email.upsert({
         where: {
-          gmailId: msg.id,
+          gmailId_userId: {
+            gmailId: msg.id,
+            userId: user.id,
+          },
         },
         update: {
+          threadId: email.data.threadId || "",
           subject,
           sender: from,
           snippet: email.data.snippet || "",
@@ -90,12 +94,12 @@ export async function GET(req: NextRequest) {
         },
         create: {
           gmailId: msg.id,
+          userId: user.id,
           threadId: email.data.threadId || "",
           subject,
           sender: from,
           snippet: email.data.snippet || "",
           body: email.data.snippet || "",
-          userId: user.id,
         },
       });
 

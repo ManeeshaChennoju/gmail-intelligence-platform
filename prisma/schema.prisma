@@ -22,9 +22,10 @@ model User {
 }
 
 model Email {
-  id        String   @id @default(cuid())
+  id       String @id @default(cuid())
 
-  gmailId   String   @unique
+  gmailId  String
+  userId   String
   threadId  String
 
   subject   String?
@@ -35,8 +36,8 @@ model Email {
   category  String?
   summary   String?
 
-  userId    String
   user      User @relation(fields: [userId], references: [id])
+  @@unique([gmailId, userId])
 
   createdAt DateTime @default(now())
 }
