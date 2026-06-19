@@ -8,7 +8,8 @@ An AI-powered Gmail Intelligence Platform that integrates with Gmail using Googl
 
 **Vercel Deployment:**
 
-https://gmail-intelligence-platform-495qk8h9j.vercel.app/
+Live Demo:
+https://gmail-intelligence-platform.vercel.app
 ---
 
 ## Features
